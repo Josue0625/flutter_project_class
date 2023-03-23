@@ -1,5 +1,9 @@
+import 'dart:ffi';
+
+import 'package:delivery/src/login/login_controller.dart';
 import 'package:delivery/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:lottie/lottie.dart';
 
 class LoginPage extends StatefulWidget {
@@ -10,18 +14,41 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  LoginController _con = new LoginController();
+  @override
+  void initState() {
+    super.initState();
+    _con.init(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
       width: double.infinity,
-      child: Column(
+      child: Stack(
         children: [
-          _imageBanner(),
-          _textFieldEmail(),
-          _textFieldPassword(),
-          _buttonLogin(),
-          _textDontHaveAccount()
+          Positioned(
+            child: _circleLogin(),
+            top: -100,
+            left: -100,
+          ),
+          Positioned(
+            child: _textLogin(),
+            top: 52,
+            left: 26,
+          ),
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                _lottieAnimation(),
+                _textFieldEmail(),
+                _textFieldPassword(),
+                _buttonLogin(),
+                _textDontHaveAccount()
+              ],
+            ),
+          ),
         ],
       ),
     ));
@@ -49,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
       child: TextField(
         decoration: InputDecoration(
             hintText: 'Correo Electrónico',
-            hintStyle: TextStyle(color: MyColors.primaryColorDark),
+            hintStyle: TextStyle(color: MyColors.primaryColorDart),
             border: InputBorder.none,
             contentPadding: EdgeInsets.all(15),
             prefixIcon: Icon(
@@ -69,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
       child: TextField(
         decoration: InputDecoration(
             hintText: 'Contraseña',
-            hintStyle: TextStyle(color: MyColors.primaryColorDark),
+            hintStyle: TextStyle(color: MyColors.primaryColorDart),
             border: InputBorder.none,
             contentPadding: EdgeInsets.all(15),
             prefixIcon: Icon(
@@ -107,10 +134,13 @@ class _LoginPageState extends State<LoginPage> {
         const SizedBox(
           width: 15,
         ),
-        Text(
-          'Registrate',
-          style: TextStyle(
-              color: MyColors.primaryColor, fontWeight: FontWeight.bold),
+        GestureDetector(
+          onTap: _con.goToRegisterPage,
+          child: Text(
+            'Registrate',
+            style: TextStyle(
+                color: MyColors.primaryColor, fontWeight: FontWeight.bold),
+          ),
         )
       ],
     );
@@ -133,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
         color: Colors.white,
         fontWeight: FontWeight.bold,
         fontSize: 22,
-        fontFamily: 'NimbusSans',
+        fontFamily: 'Roboto',
       ),
     );
   }
@@ -142,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
     return Container(
       margin: EdgeInsets.only(top: 150, bottom: 30),
       child: Lottie.asset('assets/json/delivery.json',
-          width: 350, height: 200, fit: BoxFit.fill),
+          width: 350, height: 220, fit: BoxFit.fill),
     );
   }
 }
