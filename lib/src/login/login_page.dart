@@ -16,14 +16,14 @@ class _LoginPageState extends State<LoginPage> {
         body: Container(
       width: double.infinity,
       child: Column(
-        children:[
-              _imageBanner(),
-              _textFieldEmail(),
-              _textFieldPassword(),
-              _buttonLogin(),
-              _textDontHaveAccount()
-            ],
-          ),
+        children: [
+          _imageBanner(),
+          _textFieldEmail(),
+          _textFieldPassword(),
+          _buttonLogin(),
+          _textDontHaveAccount()
+        ],
+      ),
     ));
   }
 
@@ -49,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
       child: TextField(
         decoration: InputDecoration(
             hintText: 'Correo Electrónico',
-            hintStyle: TextStyle(color: MyColors.primaryColorDart),
+            hintStyle: TextStyle(color: MyColors.primaryColorDark),
             border: InputBorder.none,
             contentPadding: EdgeInsets.all(15),
             prefixIcon: Icon(
@@ -69,7 +69,7 @@ class _LoginPageState extends State<LoginPage> {
       child: TextField(
         decoration: InputDecoration(
             hintText: 'Contraseña',
-            hintStyle: TextStyle(color: MyColors.primaryColorDart),
+            hintStyle: TextStyle(color: MyColors.primaryColorDark),
             border: InputBorder.none,
             contentPadding: EdgeInsets.all(15),
             prefixIcon: Icon(
@@ -142,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
     return Container(
       margin: EdgeInsets.only(top: 150, bottom: 30),
       child: Lottie.asset('assets/json/delivery.json',
-        width: 350, height: 200, fit: BoxFit.fill),
+          width: 350, height: 200, fit: BoxFit.fill),
     );
   }
 }
