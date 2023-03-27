@@ -18,7 +18,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    _con.init(context);
+    SchedulerBinding.instance!.addPersistentFrameCallback((timeStamp) {
+      _con.init(context);
+    });
   }
 
   @override
