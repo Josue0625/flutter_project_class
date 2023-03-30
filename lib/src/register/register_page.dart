@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:delivery/src/utils/my_colors.dart';
+import 'package:delivery/src/register/register_controller.dart';
+import 'package:flutter/scheduler.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -8,7 +10,17 @@ class RegisterPage extends StatefulWidget {
   State<RegisterPage> createState() => _RegisterPageState();
 }
 
+RegisterController _con = new RegisterController();
+
 class _RegisterPageState extends State<RegisterPage> {
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
+      _con.init(context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,6 +94,8 @@ Widget _textFieldEmail() {
       borderRadius: BorderRadius.circular(30),
     ),
     child: TextField(
+      keyboardType: TextInputType.emailAddress,
+      controller: _con.emailController,
       decoration: InputDecoration(
         hintText: 'Correo Electronico',
         hintStyle: TextStyle(color: MyColors.primaryColorDart),
@@ -104,6 +118,7 @@ Widget _textFieldName() {
       borderRadius: BorderRadius.circular(30),
     ),
     child: TextField(
+      controller: _con.nameController,
         decoration: InputDecoration(
       hintText: 'Nombre',
       hintStyle: TextStyle(color: MyColors.primaryColorDart),
@@ -125,6 +140,7 @@ Widget _textFieldLastName() {
       borderRadius: BorderRadius.circular(30),
     ),
     child: TextField(
+      controller: _con.lastNameController,
       decoration: InputDecoration(
         hintText: 'Apellido',
         hintStyle: TextStyle(color: MyColors.primaryColorDart),
@@ -147,6 +163,8 @@ Widget _textFieldPhone() {
       borderRadius: BorderRadius.circular(30),
     ),
     child: TextField(
+      keyboardType: TextInputType.phone,
+      controller: _con.phoneController,
       decoration: InputDecoration(
         hintText: 'Telefono',
         hintStyle: TextStyle(color: MyColors.primaryColorDart),
@@ -169,6 +187,8 @@ Widget _textFieldPassword() {
       borderRadius: BorderRadius.circular(30),
     ),
     child: TextField(
+      obscureText: true,
+      controller: _con.passController,
       decoration: InputDecoration(
         hintText: 'Contraseña',
         hintStyle: TextStyle(color: MyColors.primaryColorDart),
@@ -191,6 +211,8 @@ Widget _textFieldConfirmPassword() {
       borderRadius: BorderRadius.circular(30),
     ),
     child: TextField(
+      obscureText: true,
+      controller: _con.confirmPassController,
       decoration: InputDecoration(
         hintText: 'Confirmar Contraseña',
         hintStyle: TextStyle(color: MyColors.primaryColorDart),
@@ -210,7 +232,7 @@ Widget _buttonRegister() {
     width: double.infinity,
     margin: EdgeInsets.symmetric(horizontal: 60, vertical: 20),
     child: ElevatedButton(
-      onPressed: () {},
+      onPressed: _con.register,
       child: Text('REGISTRARSE'),
       style: ElevatedButton.styleFrom(
         backgroundColor: MyColors.primaryColor,

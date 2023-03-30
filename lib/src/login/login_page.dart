@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:delivery/src/login/login_controller.dart';
 import 'package:delivery/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
@@ -76,6 +74,8 @@ class _LoginPageState extends State<LoginPage> {
           color: MyColors.primaryOpacityColor,
           borderRadius: BorderRadius.circular(30)),
       child: TextField(
+        controller: _con.emailController,
+        keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
             hintText: 'Correo Electrónico',
             hintStyle: TextStyle(color: MyColors.primaryColorDart),
@@ -96,6 +96,8 @@ class _LoginPageState extends State<LoginPage> {
           color: MyColors.primaryOpacityColor,
           borderRadius: BorderRadius.circular(30)),
       child: TextField(
+        obscureText: true,
+        controller: _con.passwordController,
         decoration: InputDecoration(
             hintText: 'Contraseña',
             hintStyle: TextStyle(color: MyColors.primaryColorDart),
@@ -114,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 60, vertical: 20),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: _con.login,
         child: Text('INGRESAR'),
         style: ElevatedButton.styleFrom(
             backgroundColor: MyColors.primaryColor,
